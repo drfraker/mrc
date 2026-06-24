@@ -58,6 +58,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function snfTransfer(array $payload): array
     {
         $days = $this->int($payload, 'daysToSnfAdmission');
@@ -74,6 +78,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function relatedCondition(array $payload): array
     {
         $related = Arr::get($payload, 'conditionRelatedToHospitalStay');
@@ -89,6 +97,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function dailySkilled(array $payload): array
     {
         $basis = Arr::get($payload, 'skilledServiceBasis');
@@ -119,6 +131,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function practicalMatter(array $payload): array
     {
         $practical = Arr::get($payload, 'requiresInpatientSnfAsPracticalMatter');
@@ -134,6 +150,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function initialCertification(array $payload): array
     {
         $present = Arr::get($payload, 'initialCertificationPresent');
@@ -149,6 +169,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function firstRecertification(array $payload): array
     {
         $day = $this->int($payload, 'firstRecertificationDay');
@@ -164,6 +188,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function subsequentRecertification(array $payload): array
     {
         $maxInterval = $this->int($payload, 'maxSubsequentRecertificationIntervalDays');
@@ -179,6 +207,10 @@ class ComplianceCaseEvaluator
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
     private function documentation(array $payload): array
     {
         $checks = collect((array) Arr::get($payload, 'documentationChecks', []));
@@ -206,6 +238,7 @@ class ComplianceCaseEvaluator
     }
 
     /**
+     * @param  array<int, string>  $missingEvidence
      * @return array<string, mixed>
      */
     private function finding(string $id, string $title, string $result, string $rationale, string $citation, array $missingEvidence = []): array

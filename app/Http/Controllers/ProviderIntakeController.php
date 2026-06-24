@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ComplianceCase;
+use App\Models\Facility;
 use App\Services\Compliance\ComplianceCaseEvaluator;
 use App\Services\Compliance\PatientDataAnonymizer;
 use Illuminate\Http\RedirectResponse;
@@ -13,19 +14,32 @@ use Inertia\Response;
 
 class ProviderIntakeController extends Controller
 {
-    public function create(): Response
+    public function create(Facility $facility, string $token): Response
     {
-        return Inertia::render('provider/intake');
+        $this->ensureFacilityLinkIsValid($facility, $token);
+
+        return Inertia::render('provider/intake', [
+            'facility' => [
+                'name' => $facility->name,
+                'state' => $facility->state,
+            ],
+            'submitUrl' => route('facility-intake.store', [
+                'facility' => $facility,
+                'token' => $token,
+            ]),
+        ]);
     }
 
     public function store(
         Request $request,
+        Facility $facility,
+        string $token,
         PatientDataAnonymizer $anonymizer,
         ComplianceCaseEvaluator $evaluator,
     ): RedirectResponse {
+        $this->ensureFacilityLinkIsValid($facility, $token);
+
         $validated = $request->validate([
-            'facilityName' => ['required', 'string', 'max:160'],
-            'facilityState' => ['required', 'string', 'size:2'],
             'submitterName' => ['nullable', 'string', 'max:120'],
             'submitterEmail' => ['nullable', 'email', 'max:160'],
             'patientReferenceCode' => ['nullable', 'string', 'max:48'],
@@ -52,11 +66,13 @@ class ProviderIntakeController extends Controller
         $payload = $anonymizer->sanitizePayload($validated['caseData']);
         $findings = $evaluator->evaluate($payload);
 
-        $case = ComplianceCase::query()->create([
+        ComplianceCase::query()->create([
+            'team_id' => $facility->team_id,
+            'facility_id' => $facility->id,
             'status' => 'submitted',
             'review_type' => $validated['reviewType'],
-            'facility_name' => $validated['facilityName'],
-            'facility_state' => strtoupper($validated['facilityState']),
+            'facility_name' => $facility->name,
+            'facility_state' => $facility->state,
             'submitter_name' => $validated['submitterName'] ?? null,
             'submitter_email' => $validated['submitterEmail'] ?? null,
             'patient_reference_code' => $anonymizer->sanitizeReference($validated['patientReferenceCode'] ?? null),
@@ -65,14 +81,16 @@ class ProviderIntakeController extends Controller
             'submitted_at' => now(),
         ]);
 
-        return redirect()->route('provider-intake.submitted', $case);
+        return redirect()->route('provider-intake.submitted');
     }
 
-    public function submitted(ComplianceCase $complianceCase): Response
+    public function submitted(): Response
     {
-        return Inertia::render('provider/submitted', [
-            'caseReference' => $complianceCase->uuid,
-            'facilityName' => $complianceCase->facility_name,
-        ]);
+        return Inertia::render('provider/submitted');
+    }
+
+    private function ensureFacilityLinkIsValid(Facility $facility, string $token): void
+    {
+        abort_unless($facility->is_active && $facility->matchesIntakeToken($token), 404);
     }
 }

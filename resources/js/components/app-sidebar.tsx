@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { ClipboardCheck, FilePlus2, LayoutGrid, LifeBuoy } from 'lucide-react';
+import { Building2, ClipboardCheck, LayoutGrid, LifeBuoy } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -22,6 +22,7 @@ export function AppSidebar() {
     const team = page.props.currentTeam as { slug?: string } | null;
     const dashboardUrl = team?.slug ? dashboard(team.slug) : '/';
     const reviewsUrl = team?.slug ? `/${team.slug}/reviews` : '/';
+    const facilitiesUrl = team?.slug ? `/${team.slug}/facilities` : '/';
 
     const mainNavItems: NavItem[] = [
         {
@@ -35,9 +36,9 @@ export function AppSidebar() {
             icon: ClipboardCheck,
         },
         {
-            title: 'Provider Intake Form',
-            href: '/provider/intake',
-            icon: FilePlus2,
+            title: 'Facilities',
+            href: facilitiesUrl,
+            icon: Building2,
         },
     ];
 

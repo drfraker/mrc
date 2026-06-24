@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { ClipboardCheck, FilePlus2 } from 'lucide-react';
+import { Building2, ClipboardCheck } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -54,11 +54,11 @@ export default function ReviewIndex({
                         </p>
                     </div>
                     <Link
-                        href="/provider/intake"
+                        href={`/${currentTeamSlug}/facilities`}
                         className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                     >
-                        <FilePlus2 className="size-4" />
-                        Provider intake
+                        <Building2 className="size-4" />
+                        Facilities
                     </Link>
                 </div>
 

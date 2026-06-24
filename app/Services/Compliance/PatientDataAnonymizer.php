@@ -77,6 +77,9 @@ class PatientDataAnonymizer
         return $clean !== '' ? $clean : null;
     }
 
+    /**
+     * @param  array<string, mixed>  $payload
+     */
     public function containsLikelyPhi(array $payload): bool
     {
         return Arr::where($payload, fn ($value) => $this->valueContainsLikelyPhi($value)) !== [];

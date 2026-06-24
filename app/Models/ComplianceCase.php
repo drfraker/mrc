@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
+use Carbon\CarbonInterface;
+use Database\Factories\ComplianceCaseFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 /**
  * @property int $id
  * @property string $uuid
  * @property int|null $team_id
+ * @property int|null $facility_id
  * @property int|null $reviewed_by_id
  * @property string $status
  * @property string $review_type
@@ -24,15 +26,16 @@ use Illuminate\Support\Str;
  * @property array<string, mixed> $case_payload
  * @property array<int, array<string, mixed>>|null $findings
  * @property array<string, mixed>|null $ai_draft
- * @property Carbon|null $submitted_at
- * @property Carbon|null $reviewed_at
- * @property Carbon|null $ai_drafted_at
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property CarbonInterface|null $submitted_at
+ * @property CarbonInterface|null $reviewed_at
+ * @property CarbonInterface|null $ai_drafted_at
+ * @property CarbonInterface|null $created_at
+ * @property CarbonInterface|null $updated_at
  */
 #[Fillable([
     'uuid',
     'team_id',
+    'facility_id',
     'reviewed_by_id',
     'status',
     'review_type',
@@ -50,6 +53,7 @@ use Illuminate\Support\Str;
 ])]
 class ComplianceCase extends Model
 {
+    /** @use HasFactory<ComplianceCaseFactory> */
     use HasFactory;
 
     protected static function booted(): void
@@ -71,6 +75,14 @@ class ComplianceCase extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * @return BelongsTo<Facility, $this>
+     */
+    public function facility(): BelongsTo
+    {
+        return $this->belongsTo(Facility::class);
     }
 
     /**

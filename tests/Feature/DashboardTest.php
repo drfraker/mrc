@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enums\TeamRole;
+use App\Models\ComplianceCase;
+use App\Models\Facility;
 use App\Models\Team;
 use App\Models\TeamInvitation;
 use App\Models\User;
@@ -146,5 +148,44 @@ class DashboardTest extends TestCase
         $this->assertDatabaseHas('team_invitations', [
             'id' => $invitation->id,
         ]);
+    }
+
+    public function test_dashboard_only_counts_current_team_cases()
+    {
+        $user = User::factory()->create();
+        $team = $user->currentTeam()->firstOrFail();
+        $facility = Facility::factory()->create(['team_id' => $team->id]);
+        $otherFacility = Facility::factory()->create();
+
+        ComplianceCase::query()->create([
+            'team_id' => $team->id,
+            'facility_id' => $facility->id,
+            'status' => 'submitted',
+            'review_type' => 'continued_stay',
+            'facility_name' => $facility->name,
+            'facility_state' => $facility->state,
+            'case_payload' => ['reviewType' => 'continued_stay'],
+        ]);
+
+        ComplianceCase::query()->create([
+            'team_id' => $otherFacility->team_id,
+            'facility_id' => $otherFacility->id,
+            'status' => 'submitted',
+            'review_type' => 'continued_stay',
+            'facility_name' => $otherFacility->name,
+            'facility_state' => $otherFacility->state,
+            'case_payload' => ['reviewType' => 'continued_stay'],
+        ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->get(route('dashboard', ['current_team' => $team]));
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->where('caseCounts.submitted', 1)
+            ->has('recentCases', 1)
+            ->where('recentCases.0.facilityName', $facility->name),
+        );
     }
 }

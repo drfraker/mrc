@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Consultant\ComplianceCaseController;
+use App\Http\Controllers\Consultant\FacilityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProviderIntakeController;
 use App\Http\Controllers\Teams\TeamInvitationController;
@@ -13,14 +14,18 @@ Route::inertia('/working-with-mrc', 'working')->name('working');
 Route::inertia('/resources', 'resources')->name('resources');
 Route::inertia('/contact', 'contact')->name('contact');
 
-Route::get('/provider/intake', [ProviderIntakeController::class, 'create'])->name('provider-intake.create');
-Route::post('/provider/intake', [ProviderIntakeController::class, 'store'])->name('provider-intake.store');
-Route::get('/provider/intake/{complianceCase}/submitted', [ProviderIntakeController::class, 'submitted'])->name('provider-intake.submitted');
+Route::get('/provider/intake/submitted', [ProviderIntakeController::class, 'submitted'])->name('provider-intake.submitted');
+Route::get('/facilities/{facility:slug}/intake/{token}', [ProviderIntakeController::class, 'create'])->name('facility-intake.create');
+Route::post('/facilities/{facility:slug}/intake/{token}', [ProviderIntakeController::class, 'store'])->name('facility-intake.store');
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
     ->group(function () {
         Route::get('dashboard', DashboardController::class)->name('dashboard');
+        Route::get('facilities', [FacilityController::class, 'index'])->name('facilities.index');
+        Route::post('facilities', [FacilityController::class, 'store'])->name('facilities.store');
+        Route::patch('facilities/{facility}', [FacilityController::class, 'update'])->name('facilities.update');
+        Route::post('facilities/{facility}/rotate-link', [FacilityController::class, 'rotateLink'])->name('facilities.rotate-link');
         Route::get('reviews', [ComplianceCaseController::class, 'index'])->name('reviews.index');
         Route::get('reviews/{complianceCase}', [ComplianceCaseController::class, 'show'])->name('reviews.show');
         Route::patch('reviews/{complianceCase}/status', [ComplianceCaseController::class, 'updateStatus'])->name('reviews.status');

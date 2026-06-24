@@ -2,13 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import { CheckCircle2 } from 'lucide-react';
 import Seo from '@/components/seo';
 
-export default function Submitted({
-    caseReference,
-    facilityName,
-}: {
-    caseReference: string;
-    facilityName: string;
-}) {
+export default function Submitted() {
     return (
         <>
             <Head title="Submission received" />
@@ -24,23 +18,11 @@ export default function Submitted({
                             Submission received
                         </h1>
                         <p className="mt-4 text-ice/80">
-                            MRC received the de-identified review for{' '}
-                            {facilityName}. A consultant can now review the
-                            deterministic rule findings and evidence gaps.
+                            MRC received the de-identified review. A consultant
+                            can now review the deterministic rule findings and
+                            evidence gaps.
                         </p>
-                        <div className="mt-5 rounded-lg border border-ice/15 bg-ice/5 p-4 text-sm">
-                            Case reference:{' '}
-                            <span className="font-semibold text-teal-bright">
-                                {caseReference}
-                            </span>
-                        </div>
                         <div className="mt-8 flex flex-wrap gap-3">
-                            <Link
-                                href="/provider/intake"
-                                className="btn btn-primary"
-                            >
-                                Submit another case
-                            </Link>
                             <Link href="/" className="btn btn-ghost">
                                 Return to MRC
                             </Link>

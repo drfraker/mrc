@@ -18,6 +18,7 @@ class ComplianceCaseController extends Controller
     public function index(Team $currentTeam, ComplianceCaseEvaluator $evaluator): Response
     {
         $cases = ComplianceCase::query()
+            ->where('team_id', $currentTeam->id)
             ->latest()
             ->paginate(20)
             ->through(fn (ComplianceCase $case) => [
@@ -39,6 +40,8 @@ class ComplianceCaseController extends Controller
 
     public function show(Team $currentTeam, ComplianceCase $complianceCase): Response
     {
+        $this->ensureCaseBelongsToTeam($complianceCase, $currentTeam);
+
         return Inertia::render('consultant/reviews/show', [
             'caseRecord' => [
                 'uuid' => $complianceCase->uuid,
@@ -60,6 +63,8 @@ class ComplianceCaseController extends Controller
 
     public function updateStatus(Request $request, Team $currentTeam, ComplianceCase $complianceCase): RedirectResponse
     {
+        $this->ensureCaseBelongsToTeam($complianceCase, $currentTeam);
+
         $validated = $request->validate([
             'status' => ['required', Rule::in(['submitted', 'needs_information', 'reviewed', 'finalized', 'archived'])],
         ]);
@@ -75,11 +80,18 @@ class ComplianceCaseController extends Controller
 
     public function draft(Team $currentTeam, ComplianceCase $complianceCase, ComplianceReportDraftService $drafts): RedirectResponse
     {
+        $this->ensureCaseBelongsToTeam($complianceCase, $currentTeam);
+
         $complianceCase->forceFill([
             'ai_draft' => $drafts->draft($complianceCase),
             'ai_drafted_at' => now(),
         ])->save();
 
         return back();
+    }
+
+    private function ensureCaseBelongsToTeam(ComplianceCase $case, Team $team): void
+    {
+        abort_unless($case->team_id === $team->id, 404);
     }
 }

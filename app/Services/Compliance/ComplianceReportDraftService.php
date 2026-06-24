@@ -4,6 +4,7 @@ namespace App\Services\Compliance;
 
 use App\Ai\ComplianceReportDraftAgent;
 use App\Models\ComplianceCase;
+use Laravel\Ai\Responses\StructuredAgentResponse;
 use Throwable;
 
 class ComplianceReportDraftService
@@ -27,7 +28,21 @@ class ComplianceReportDraftService
         ], JSON_PRETTY_PRINT);
 
         try {
-            return ComplianceReportDraftAgent::make()->prompt($prompt ?: '{}', timeout: 45)->toArray();
+            $response = ComplianceReportDraftAgent::make()->prompt($prompt ?: '{}', timeout: 45);
+
+            if ($response instanceof StructuredAgentResponse) {
+                return $response->toArray();
+            }
+
+            $decoded = json_decode($response->text, true);
+
+            return is_array($decoded) ? $decoded : [
+                'executive_summary' => $response->text,
+                'compliance_risks' => [],
+                'evidence_gaps' => [],
+                'next_questions' => [],
+                'report_draft' => $response->text,
+            ];
         } catch (Throwable $exception) {
             report($exception);
 

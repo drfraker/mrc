@@ -2,7 +2,6 @@ export const NAV_ITEMS = [
     { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
     { label: 'Working with MRC', href: '/working-with-mrc' },
-    { label: 'Provider Intake', href: '/provider/intake' },
     { label: 'Resources', href: '/resources' },
     { label: 'Contact', href: '/contact' },
 ] as const;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ComplianceCase;
+use App\Models\Team;
 use App\Models\TeamInvitation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -10,7 +11,7 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, Team $currentTeam): Response
     {
         $email = strtolower($request->user()->email);
 
@@ -33,13 +34,14 @@ class DashboardController extends Controller
             ]);
 
         $caseCounts = [
-            'submitted' => ComplianceCase::query()->where('status', 'submitted')->count(),
-            'needsInformation' => ComplianceCase::query()->where('status', 'needs_information')->count(),
-            'reviewed' => ComplianceCase::query()->where('status', 'reviewed')->count(),
-            'finalized' => ComplianceCase::query()->where('status', 'finalized')->count(),
+            'submitted' => $this->caseCount($currentTeam, 'submitted'),
+            'needsInformation' => $this->caseCount($currentTeam, 'needs_information'),
+            'reviewed' => $this->caseCount($currentTeam, 'reviewed'),
+            'finalized' => $this->caseCount($currentTeam, 'finalized'),
         ];
 
         $recentCases = ComplianceCase::query()
+            ->where('team_id', $currentTeam->id)
             ->latest()
             ->limit(6)
             ->get()
@@ -56,5 +58,13 @@ class DashboardController extends Controller
             'caseCounts' => $caseCounts,
             'recentCases' => $recentCases,
         ]);
+    }
+
+    private function caseCount(Team $team, string $status): int
+    {
+        return ComplianceCase::query()
+            ->where('team_id', $team->id)
+            ->where('status', $status)
+            ->count();
     }
 }

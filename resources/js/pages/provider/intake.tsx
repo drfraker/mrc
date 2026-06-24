@@ -7,8 +7,6 @@ import Seo from '@/components/seo';
 type Boolish = 'unknown' | 'yes' | 'no';
 
 type FormState = {
-    facilityName: string;
-    facilityState: string;
     submitterName: string;
     submitterEmail: string;
     patientReferenceCode: string;
@@ -29,6 +27,11 @@ type FormState = {
     narrative: string;
     documentationChecks: Record<string, boolean>;
     phiAcknowledgement: boolean;
+};
+
+type FacilityContext = {
+    name: string;
+    state: string;
 };
 
 type LocalDates = {
@@ -57,8 +60,6 @@ const documentationOptions = [
 ] as const;
 
 const initialForm: FormState = {
-    facilityName: '',
-    facilityState: 'MT',
     submitterName: '',
     submitterEmail: '',
     patientReferenceCode: '',
@@ -86,7 +87,13 @@ const initialDates: LocalDates = {
     snfAdmissionDate: '',
 };
 
-export default function ProviderIntake() {
+export default function ProviderIntake({
+    facility,
+    submitUrl,
+}: {
+    facility: FacilityContext;
+    submitUrl: string;
+}) {
     const [form, setForm] = useState<FormState>(initialForm);
     const [dates, setDates] = useState<LocalDates>(initialDates);
     const [processing, setProcessing] = useState(false);
@@ -121,10 +128,8 @@ export default function ProviderIntake() {
         setProcessing(true);
 
         router.post(
-            '/provider/intake',
+            submitUrl,
             {
-                facilityName: form.facilityName,
-                facilityState: form.facilityState.toUpperCase(),
                 submitterName: form.submitterName,
                 submitterEmail: form.submitterEmail,
                 patientReferenceCode: redactText(form.patientReferenceCode),
@@ -220,26 +225,13 @@ export default function ProviderIntake() {
                         <div className="space-y-6">
                             <Panel title="Facility and review">
                                 <div className="grid gap-4 sm:grid-cols-2">
-                                    <TextField
-                                        label="Facility name"
-                                        value={form.facilityName}
-                                        error={errors.facilityName}
-                                        onChange={(value) =>
-                                            update('facilityName', value)
-                                        }
-                                        required
+                                    <ReadOnlyField
+                                        label="Facility"
+                                        value={facility.name}
                                     />
-                                    <TextField
+                                    <ReadOnlyField
                                         label="State"
-                                        value={form.facilityState}
-                                        error={errors.facilityState}
-                                        onChange={(value) =>
-                                            update(
-                                                'facilityState',
-                                                value.toUpperCase().slice(0, 2),
-                                            )
-                                        }
-                                        required
+                                        value={facility.state}
                                     />
                                     <TextField
                                         label="Your name"
@@ -654,6 +646,17 @@ function TextField({
                 <span className="mt-1 block text-xs text-red-700">{error}</span>
             )}
         </label>
+    );
+}
+
+function ReadOnlyField({ label, value }: { label: string; value: string }) {
+    return (
+        <div className="block text-sm font-medium text-ink">
+            {label}
+            <div className="mt-1 min-h-10 rounded-lg border border-line bg-paper px-3 py-2 text-ink">
+                {value}
+            </div>
+        </div>
     );
 }
 

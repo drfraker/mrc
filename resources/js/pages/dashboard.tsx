@@ -1,5 +1,5 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { ClipboardCheck, FilePlus2, Inbox, TriangleAlert } from 'lucide-react';
+import { Building2, ClipboardCheck, Inbox, TriangleAlert } from 'lucide-react';
 import { useState } from 'react';
 import PendingInvitationsModal from '@/components/pending-invitations-modal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -44,6 +44,9 @@ export default function Dashboard({
     const { props } = usePage();
     const currentTeam = props.currentTeam as { slug?: string } | null;
     const reviewsUrl = currentTeam?.slug ? `/${currentTeam.slug}/reviews` : '/';
+    const facilitiesUrl = currentTeam?.slug
+        ? `/${currentTeam.slug}/facilities`
+        : '/';
 
     return (
         <>
@@ -67,11 +70,11 @@ export default function Dashboard({
                     </div>
                     <div className="flex flex-wrap gap-2">
                         <Link
-                            href="/provider/intake"
+                            href={facilitiesUrl}
                             className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
                         >
-                            <FilePlus2 className="size-4" />
-                            Intake form
+                            <Building2 className="size-4" />
+                            Facilities
                         </Link>
                         <Link
                             href={reviewsUrl}

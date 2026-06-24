@@ -34,17 +34,11 @@
             'image' => '/images/montana.jpg',
             'robots' => 'index, follow',
         ],
-        '/provider/intake' => [
-            'title' => 'De-identified SNF Medicare Review Intake',
-            'description' => 'Submit de-identified skilled nursing facility Medicare Part A review facts to Medical Review Consultants.',
-            'image' => '/images/svc-utilization.jpg',
-            'robots' => 'noindex, nofollow',
-        ],
     ][$path] ?? [
         'title' => $siteName,
         'description' => 'Medical Review Consultants helps healthcare facilities reduce Medicare compliance risk, protect reimbursement, and save staff time.',
         'image' => '/images/working.jpg',
-        'robots' => str_starts_with($path, '/login') || str_starts_with($path, '/register') || str_contains($path, '/reviews') || str_contains($path, '/dashboard') ? 'noindex, nofollow' : 'index, follow',
+        'robots' => str_starts_with($path, '/login') || str_starts_with($path, '/register') || str_starts_with($path, '/facilities') || str_contains($path, '/reviews') || str_contains($path, '/dashboard') ? 'noindex, nofollow' : 'index, follow',
     ];
     $canonicalUrl = $siteUrl . $path;
     $imageUrl = $siteUrl . $meta['image'];
