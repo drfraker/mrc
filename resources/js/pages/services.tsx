@@ -20,7 +20,7 @@ const SERVICES: Service[] = [
         title: 'Medicare Part A Utilization Review',
         lede: 'Protect reimbursement decisions before they turn into denials, missed notices, or hours of staff rework.',
         body: 'Each week, our consultants meet with your team to review every skilled Medicare patient. We help verify that Part A coverage remains defensible, flag when a Notice of Non-Coverage may be required, and answer the Medicare questions that would otherwise pull your nurses and leaders away from care operations.',
-        image: '/images/svc-utilization.png',
+        image: '/images/svc-utilization.jpg',
         alt: 'A nurse consultant reviewing patient records with facility staff',
         points: [
             'Weekly reviews that catch coverage changes early',
@@ -35,7 +35,7 @@ const SERVICES: Service[] = [
         title: 'Physician Peer Review',
         lede: 'Get credible outside opinions without asking your team to chase scarce, unbiased reviewers.',
         body: 'MRC partners with two experienced physicians — one in General Practice, one in Internal Medicine — each with more than 25 years of active patient care. They review Inpatient, Emergency Department, and Office Visit charts and deliver clear professional opinions on care decisions, giving your facility independent support when a record needs to stand on its own.',
-        image: '/images/svc-peer-review.png',
+        image: '/images/svc-peer-review.jpg',
         alt: 'A senior physician carefully reviewing a patient chart',
         points: [
             'Reviewers with 25+ years of active practice each',
@@ -50,7 +50,7 @@ const SERVICES: Service[] = [
         title: 'RAC Appeals Assistance',
         lede: 'Spend appeal dollars only where the claim is worth defending, then build the strongest case you can.',
         body: 'A Recovery Audit Contractor appeal can consume leadership time fast. Our consultants start with an honest viability analysis: is the underlying claim meritorious, and what legal and clinical defenses apply? From there, we guide your facility through each stage with a clear strategy, so you do not waste effort on weak arguments or miss the ones that matter.',
-        image: '/images/svc-rac.png',
+        image: '/images/svc-rac.jpg',
         alt: 'A consultant organizing documentation for a Medicare appeal',
         points: [
             'Up-front viability analysis before you invest more time',
@@ -65,7 +65,7 @@ const SERVICES: Service[] = [
         title: 'Staff Education & Ongoing Support',
         lede: 'Turn Medicare questions into quick answers, not another staff research project.',
         body: 'Your team has direct access to our consultants for Medicare questions — MDS scheduling, Consolidated Billing, payment classification, coverage criteria, and more. Instead of carrying the full burden of training and retraining internal staff as standards change, your facility gets practical education in the flow of daily work.',
-        image: '/images/svc-education.png',
+        image: '/images/svc-education.jpg',
         alt: 'A consultant leading an education session with nursing staff',
         points: [
             'Unlimited consultant calls under your monthly retainer',
@@ -138,7 +138,7 @@ export default function Services() {
                 title="Medicare Utilization Review, Peer Review & RAC Appeals"
                 description="Medicare Part A utilization review, physician peer review, RAC appeal assistance, and staff education for SNFs, Critical Access Hospitals, and rural providers."
                 path="/services"
-                image="/images/svc-utilization.png"
+                image="/images/svc-utilization.jpg"
                 jsonLd={[
                     breadcrumbSchema([
                         { name: 'Home', path: '/' },

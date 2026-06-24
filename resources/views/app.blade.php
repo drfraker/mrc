@@ -7,32 +7,32 @@
         '/' => [
             'title' => 'Medicare Compliance Consulting for Skilled Nursing Facilities',
             'description' => 'Medical Review Consultants helps SNFs, Critical Access Hospitals, and rural providers reduce Medicare compliance risk, protect reimbursement, and save staff time.',
-            'image' => '/images/working.png',
+            'image' => '/images/working.jpg',
         ],
         '/services' => [
             'title' => 'Medicare Utilization Review, Peer Review & RAC Appeals',
             'description' => 'Medicare Part A utilization review, physician peer review, RAC appeal assistance, and staff education for SNFs, Critical Access Hospitals, and rural providers.',
-            'image' => '/images/svc-utilization.png',
+            'image' => '/images/svc-utilization.jpg',
         ],
         '/working-with-mrc' => [
             'title' => 'Medicare Review Support That Reduces Staff Burden',
             'description' => 'How MRC helps facilities save internal time, reduce Medicare compliance burden, and use predictable support for utilization review, education, and appeals.',
-            'image' => '/images/working.png',
+            'image' => '/images/working.jpg',
         ],
         '/resources' => [
             'title' => 'Medicare Compliance Resources for Skilled Nursing Facilities',
             'description' => 'Medicare and post-acute care resources for CMS regulations, SNF Consolidated Billing, code lookups, QIO appeals, and nursing facility education.',
-            'image' => '/images/svc-education.png',
+            'image' => '/images/svc-education.jpg',
         ],
         '/contact' => [
             'title' => 'Contact Medicare Review Consultants in Bozeman, Montana',
             'description' => 'Contact MRC for Medicare utilization review, compliance consulting, physician peer review, RAC appeals, and staff education for rural healthcare facilities.',
-            'image' => '/images/montana.png',
+            'image' => '/images/montana.jpg',
         ],
     ][$path] ?? [
         'title' => $siteName,
         'description' => 'Medical Review Consultants helps healthcare facilities reduce Medicare compliance risk, protect reimbursement, and save staff time.',
-        'image' => '/images/working.png',
+        'image' => '/images/working.jpg',
     ];
     $canonicalUrl = $siteUrl . $path;
     $imageUrl = $siteUrl . $meta['image'];

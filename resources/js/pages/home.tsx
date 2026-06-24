@@ -120,7 +120,7 @@ export default function Home() {
             <Seo
                 title="Medicare Compliance Consulting for Skilled Nursing Facilities"
                 description="Medical Review Consultants helps SNFs, Critical Access Hospitals, and rural providers reduce Medicare compliance risk, protect reimbursement, and save staff time."
-                image="/images/working.png"
+                image="/images/working.jpg"
             />
 
             {/* Hero */}
@@ -247,7 +247,7 @@ export default function Home() {
                     <div className="grid items-center gap-[clamp(2.2rem,5vw,4.5rem)] lg:grid-cols-2">
                         <div className="reveal relative overflow-hidden rounded-card shadow-lift">
                             <img
-                                src="/images/montana.png"
+                                src="/images/montana.jpg"
                                 alt="Sunrise over mountain ridgelines near Bozeman, Montana"
                                 width={1536}
                                 height={1024}

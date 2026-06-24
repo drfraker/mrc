@@ -5,7 +5,7 @@ const SITE_NAME = 'Medical Review Consultants';
 const SITE_URL =
     (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, '') ||
     'https://www.medreviewconsultants.com';
-const DEFAULT_IMAGE = `${SITE_URL}/images/working.png`;
+const DEFAULT_IMAGE = `${SITE_URL}/images/working.jpg`;
 
 type JsonLd = Record<string, unknown> | Record<string, unknown>[];
 

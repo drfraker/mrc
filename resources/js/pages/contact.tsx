@@ -38,7 +38,7 @@ export default function Contact() {
                 title="Contact Medicare Review Consultants in Bozeman, Montana"
                 description="Contact MRC for Medicare utilization review, compliance consulting, physician peer review, RAC appeals, and staff education for rural healthcare facilities."
                 path="/contact"
-                image="/images/montana.png"
+                image="/images/montana.jpg"
                 jsonLd={breadcrumbSchema([
                     { name: 'Home', path: '/' },
                     { name: 'Contact', path: '/contact' },

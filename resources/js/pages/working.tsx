@@ -47,7 +47,7 @@ export default function Working() {
                 title="Medicare Review Support That Reduces Staff Burden"
                 description="How MRC helps facilities save internal time, reduce Medicare compliance burden, and use predictable support for utilization review, education, and appeals."
                 path="/working-with-mrc"
-                image="/images/working.png"
+                image="/images/working.jpg"
                 jsonLd={breadcrumbSchema([
                     { name: 'Home', path: '/' },
                     { name: 'Working with MRC', path: '/working-with-mrc' },
@@ -70,7 +70,7 @@ export default function Working() {
                 <div className="container-page grid items-center gap-[clamp(2.2rem,5vw,4.5rem)] lg:grid-cols-2">
                     <div className="reveal relative overflow-hidden rounded-card shadow-lift">
                         <img
-                            src="/images/working.png"
+                            src="/images/working.jpg"
                             alt="A consultant meeting with a facility's nursing team"
                             width={1536}
                             height={1024}

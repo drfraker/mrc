@@ -43,7 +43,7 @@ export default function Resources() {
                 title="Medicare Compliance Resources for Skilled Nursing Facilities"
                 description="Medicare and post-acute care resources for CMS regulations, SNF Consolidated Billing, code lookups, QIO appeals, and nursing facility education."
                 path="/resources"
-                image="/images/svc-education.png"
+                image="/images/svc-education.jpg"
                 jsonLd={breadcrumbSchema([
                     { name: 'Home', path: '/' },
                     { name: 'Resources', path: '/resources' },
