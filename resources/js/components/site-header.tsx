@@ -1,5 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Menu, Phone, ShieldCheck, X } from 'lucide-react';
+import {
+    LayoutDashboard,
+    LogIn,
+    Menu,
+    Phone,
+    ShieldCheck,
+    X,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { CONTACT, NAV_ITEMS } from '@/lib/site';
 
@@ -25,9 +32,18 @@ function Brand() {
 }
 
 export default function SiteHeader() {
-    const { url } = usePage();
+    const { url, props } = usePage();
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
+    const auth = props.auth as { user?: unknown } | undefined;
+    const currentTeam = props.currentTeam as
+        | { slug?: string }
+        | null
+        | undefined;
+    const consultantHref =
+        auth?.user && currentTeam?.slug
+            ? `/${currentTeam.slug}/dashboard`
+            : '/login';
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 24);
@@ -73,13 +89,29 @@ export default function SiteHeader() {
                     ))}
                 </nav>
 
-                <a
-                    href={CONTACT.phonePrimaryHref}
-                    className="btn btn-primary hidden whitespace-nowrap lg:inline-flex"
-                >
-                    <Phone className="size-[1.05em]" strokeWidth={2} />
-                    {CONTACT.phonePrimary}
-                </a>
+                <div className="hidden items-center gap-2 lg:flex">
+                    <Link
+                        href={consultantHref}
+                        className="inline-flex items-center gap-2 rounded-full border border-ice/25 px-4 py-2 text-[0.92rem] font-semibold text-ice no-underline transition-colors hover:border-teal-bright hover:text-teal-bright"
+                    >
+                        {auth?.user ? (
+                            <LayoutDashboard
+                                className="size-[1.05em]"
+                                strokeWidth={2}
+                            />
+                        ) : (
+                            <LogIn className="size-[1.05em]" strokeWidth={2} />
+                        )}
+                        {auth?.user ? 'Dashboard' : 'Consultant Login'}
+                    </Link>
+                    <a
+                        href={CONTACT.phonePrimaryHref}
+                        className="btn btn-primary whitespace-nowrap"
+                    >
+                        <Phone className="size-[1.05em]" strokeWidth={2} />
+                        {CONTACT.phonePrimary}
+                    </a>
+                </div>
 
                 <button
                     type="button"
@@ -119,6 +151,24 @@ export default function SiteHeader() {
                                 {item.label}
                             </Link>
                         ))}
+                        <Link
+                            href={consultantHref}
+                            className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-ice/20 px-4 py-3 text-[0.95rem] font-semibold text-ice no-underline"
+                            onClick={() => setOpen(false)}
+                        >
+                            {auth?.user ? (
+                                <LayoutDashboard
+                                    className="size-[1.05em]"
+                                    strokeWidth={2}
+                                />
+                            ) : (
+                                <LogIn
+                                    className="size-[1.05em]"
+                                    strokeWidth={2}
+                                />
+                            )}
+                            {auth?.user ? 'Dashboard' : 'Consultant Login'}
+                        </Link>
                         <a
                             href={CONTACT.phonePrimaryHref}
                             className="btn btn-primary mt-2 justify-center"
