@@ -1,6 +1,7 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ExternalLink } from 'lucide-react';
 import { CtaBand, SubHero } from '@/components/sections';
+import Seo, { breadcrumbSchema } from '@/components/seo';
 
 const RESOURCES = [
     {
@@ -38,12 +39,16 @@ const RESOURCES = [
 export default function Resources() {
     return (
         <>
-            <Head title="Resources">
-                <meta
-                    name="description"
-                    content="Medicare and post-acute care references we rely on — CMS regulations, code lookups, consolidated billing, and professional associations."
-                />
-            </Head>
+            <Seo
+                title="Medicare Compliance Resources for Skilled Nursing Facilities"
+                description="Medicare and post-acute care resources for CMS regulations, SNF Consolidated Billing, code lookups, QIO appeals, and nursing facility education."
+                path="/resources"
+                image="/images/svc-education.png"
+                jsonLd={breadcrumbSchema([
+                    { name: 'Home', path: '/' },
+                    { name: 'Resources', path: '/resources' },
+                ])}
+            />
 
             <SubHero
                 eyebrow="Resources"

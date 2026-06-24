@@ -30,9 +30,10 @@ export default function SiteFooter() {
                             </span>
                         </Link>
                         <p className="mt-5 max-w-[22rem] text-[0.92rem]">
-                            Consulting support for healthcare facilities serving
-                            Medicare patients — utilization review, physician
-                            peer review, RAC appeals, and staff education.
+                            Medicare review support that helps healthcare
+                            facilities reduce staff burden, protect
+                            reimbursement, and avoid preventable compliance
+                            problems.
                         </p>
                     </div>
 
@@ -112,8 +113,9 @@ export default function SiteFooter() {
                         rights reserved.
                     </span>
                     <span>
-                        Serving skilled nursing facilities, Critical Access
-                        Hospitals, and rural providers.
+                        Helping skilled nursing facilities, Critical Access
+                        Hospitals, and rural providers keep Medicare work
+                        current.
                     </span>
                 </div>
             </div>

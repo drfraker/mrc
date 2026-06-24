@@ -1,5 +1,6 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { CheckItem, CtaBand, Eyebrow, SubHero } from '@/components/sections';
+import Seo, { breadcrumbSchema, serviceListSchema } from '@/components/seo';
 
 type Service = {
     id: string;
@@ -17,60 +18,60 @@ const SERVICES: Service[] = [
         id: 'utilization-review',
         index: 'Service 01',
         title: 'Medicare Part A Utilization Review',
-        lede: 'Ongoing consultation with certified Medicare specialists who work directly with your facility’s leadership and floor staff.',
-        body: 'Each week, our consultants meet with your team to review every skilled Medicare patient — verifying that each one continues to meet skilled care criteria, and flagging when a Notice of Non-Coverage may be required. We’re also on call between reviews for immediate questions about skilled admissions, extended stays, payment classification, and MDS guidelines.',
+        lede: 'Protect reimbursement decisions before they turn into denials, missed notices, or hours of staff rework.',
+        body: 'Each week, our consultants meet with your team to review every skilled Medicare patient. We help verify that Part A coverage remains defensible, flag when a Notice of Non-Coverage may be required, and answer the Medicare questions that would otherwise pull your nurses and leaders away from care operations.',
         image: '/images/svc-utilization.png',
         alt: 'A nurse consultant reviewing patient records with facility staff',
         points: [
-            'Weekly skilled-patient assessments with your staff',
-            'Coverage determinations and Notice of Non-Coverage guidance',
-            'Progress abstracts prepared for every patient at discharge',
-            'Guidance on MDS schedules and Medicare payment classification',
+            'Weekly reviews that catch coverage changes early',
+            'Notice of Non-Coverage guidance to reduce compliance exposure',
+            'Discharge abstracts that create cleaner records when questions arise',
+            'MDS and payment guidance that saves internal research time',
         ],
     },
     {
         id: 'peer-review',
         index: 'Service 02',
         title: 'Physician Peer Review',
-        lede: 'Independent, unbiased clinical review from physicians who have spent their careers caring for patients.',
-        body: 'MRC partners with two experienced physicians — one in General Practice, one in Internal Medicine — each with more than 25 years of active patient care. They review Inpatient, Emergency Department, and Office Visit charts and deliver clear professional opinions on the appropriateness of treatment decisions and care plans. For Critical Access Hospitals and rural facilities, where finding a qualified outside reviewer is hard, this service fills a real gap.',
+        lede: 'Get credible outside opinions without asking your team to chase scarce, unbiased reviewers.',
+        body: 'MRC partners with two experienced physicians — one in General Practice, one in Internal Medicine — each with more than 25 years of active patient care. They review Inpatient, Emergency Department, and Office Visit charts and deliver clear professional opinions on care decisions, giving your facility independent support when a record needs to stand on its own.',
         image: '/images/svc-peer-review.png',
         alt: 'A senior physician carefully reviewing a patient chart',
         points: [
             'Reviewers with 25+ years of active practice each',
             'Inpatient, Emergency Department, and Office Visit charts',
             'Reviews typically completed within two weeks',
-            'Particularly suited to Critical Access and rural hospitals',
+            'Independent support for Critical Access and rural hospitals',
         ],
     },
     {
         id: 'rac-appeals',
         index: 'Service 03',
         title: 'RAC Appeals Assistance',
-        lede: 'A Recovery Audit Contractor appeal can be confusing, time-demanding, and expensive. We help you decide whether to fight — and how to win.',
-        body: 'Our consultants start with an honest viability analysis: is the underlying claim meritorious, and what legal and clinical defenses apply? From there, we guide your facility through each stage of the appeals process with a clear strategy, so you spend effort only where it counts.',
+        lede: 'Spend appeal dollars only where the claim is worth defending, then build the strongest case you can.',
+        body: 'A Recovery Audit Contractor appeal can consume leadership time fast. Our consultants start with an honest viability analysis: is the underlying claim meritorious, and what legal and clinical defenses apply? From there, we guide your facility through each stage with a clear strategy, so you do not waste effort on weak arguments or miss the ones that matter.',
         image: '/images/svc-rac.png',
         alt: 'A consultant organizing documentation for a Medicare appeal',
         points: [
-            'Up-front analysis of appeal viability',
-            'Identification of why the underlying claim is meritorious',
-            'Strategy and support through each level of appeal',
-            'Hourly billing — pay only for the help you need',
+            'Up-front viability analysis before you invest more time',
+            'Clear identification of why the claim is worth defending',
+            'Focused strategy through each level of appeal',
+            'Hourly billing so appeal costs stay tied to actual need',
         ],
     },
     {
         id: 'education',
         index: 'Service 04',
         title: 'Staff Education & Ongoing Support',
-        lede: 'The best compliance program is a staff that understands the rules. We make sure yours does.',
-        body: 'Your team has direct access to our consultants for any Medicare question — MDS scheduling, Consolidated Billing, payment classification, coverage criteria, and more. Nursing staff consistently tell us this ongoing education helps them do their jobs more effectively and with far more confidence.',
+        lede: 'Turn Medicare questions into quick answers, not another staff research project.',
+        body: 'Your team has direct access to our consultants for Medicare questions — MDS scheduling, Consolidated Billing, payment classification, coverage criteria, and more. Instead of carrying the full burden of training and retraining internal staff as standards change, your facility gets practical education in the flow of daily work.',
         image: '/images/svc-education.png',
         alt: 'A consultant leading an education session with nursing staff',
         points: [
             'Unlimited consultant calls under your monthly retainer',
             'MDS scheduling and Consolidated Billing guidance',
             'Medicare payment system and classification education',
-            'Practical answers your staff can apply the same day',
+            'Practical answers that reduce uncertainty the same day',
         ],
     },
 ];
@@ -133,24 +134,32 @@ function ServiceDetail({
 export default function Services() {
     return (
         <>
-            <Head title="Services">
-                <meta
-                    name="description"
-                    content="Medicare Part A utilization review, physician peer review, RAC appeals assistance, and staff education for skilled nursing facilities and rural hospitals."
-                />
-            </Head>
+            <Seo
+                title="Medicare Utilization Review, Peer Review & RAC Appeals"
+                description="Medicare Part A utilization review, physician peer review, RAC appeal assistance, and staff education for SNFs, Critical Access Hospitals, and rural providers."
+                path="/services"
+                image="/images/svc-utilization.png"
+                jsonLd={[
+                    breadcrumbSchema([
+                        { name: 'Home', path: '/' },
+                        { name: 'Services', path: '/services' },
+                    ]),
+                    serviceListSchema(),
+                ]}
+            />
 
             <SubHero
                 eyebrow="Services"
                 title={
                     <>
-                        Experienced eyes on every{' '}
+                        Medicare support built around saved time, lower risk,
+                        and{' '}
                         <em className="text-teal-bright not-italic">
-                            Medicare decision
+                            stronger reimbursement decisions
                         </em>
                     </>
                 }
-                lede="Four focused services, one goal: keeping your facility's Medicare program accurate, defensible, and well understood by your staff."
+                lede="Four focused services, one business case: avoid the cost of building this expertise alone while giving your staff current, practical guidance when Medicare decisions matter."
             />
 
             <section className="py-[clamp(4rem,9vw,6.5rem)]">
@@ -168,8 +177,8 @@ export default function Services() {
             <section className="bg-paper py-[clamp(4rem,9vw,6.5rem)]">
                 <div className="container-page">
                     <CtaBand
-                        title="Not sure which service fits?"
-                        text="Tell us what your facility is facing and we'll point you in the right direction — no obligation."
+                        title="Not sure where the savings are?"
+                        text="Tell us what your facility is carrying now. We'll help identify whether staff time, compliance exposure, appeals, or review volume is the best place to start."
                     >
                         <Link href="/contact" className="btn btn-primary">
                             Contact Us

@@ -17,8 +17,11 @@ export const CONTACT = {
 } as const;
 
 export const SERVICE_LINKS = [
-    { label: 'Utilization Review', href: '/services#utilization-review' },
+    {
+        label: 'Medicare Utilization Review',
+        href: '/services#utilization-review',
+    },
     { label: 'Physician Peer Review', href: '/services#peer-review' },
-    { label: 'RAC Appeals', href: '/services#rac-appeals' },
-    { label: 'Staff Education', href: '/services#education' },
+    { label: 'RAC Appeal Assistance', href: '/services#rac-appeals' },
+    { label: 'Medicare Staff Education', href: '/services#education' },
 ] as const;

@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import {
     BookOpen,
     ClipboardCheck,
@@ -12,62 +12,75 @@ import {
 import type { ReactNode } from 'react';
 import HeroScene from '@/components/hero-scene';
 import { CheckItem, CtaBand, Eyebrow } from '@/components/sections';
+import Seo from '@/components/seo';
 import { CONTACT } from '@/lib/site';
 
 const SERVICES = [
     {
         icon: ClipboardCheck,
-        title: 'Utilization Review',
-        body: 'Weekly skilled-patient assessments with your staff, Medicare Part A coverage determinations, and clear discharge abstracts — guided by certified Medicare specialists.',
+        title: 'Medicare Utilization Review',
+        body: 'Catch coverage changes early, support defensible Part A decisions, and reduce the staff hours spent interpreting Medicare rules week after week.',
         href: '/services#utilization-review',
     },
     {
         icon: Stethoscope,
         title: 'Physician Peer Review',
-        body: 'Independent chart review by physicians with more than 25 years in active practice, delivering unbiased professional opinions on the appropriateness of care.',
+        body: 'Get credible outside review without spending leadership time searching for qualified, independent physicians every time a case needs another set of eyes.',
         href: '/services#peer-review',
     },
     {
         icon: Scale,
         title: 'RAC Appeals Assistance',
-        body: 'Strategic guidance through Recovery Audit Contractor appeals — from an honest viability analysis to building the strongest possible case for your claim.',
+        body: 'Decide quickly whether an appeal is worth pursuing, then focus effort on the clinical and legal arguments most likely to protect reimbursement.',
         href: '/services#rac-appeals',
     },
     {
         icon: GraduationCap,
-        title: 'Staff Education & Support',
-        body: 'Ongoing education on Medicare procedures, MDS schedules, consolidated billing, and payment classification — real answers when your team needs them.',
+        title: 'Medicare Staff Education & Support',
+        body: 'Give your team practical answers from Medicare specialists instead of asking internal staff to train, retrain, and track every standards update alone.',
         href: '/services#education',
     },
 ];
 
 const STATS = [
-    { value: '25+ yrs', label: 'clinical experience per reviewing physician' },
-    { value: 'Weekly', label: 'skilled-patient reviews with your team' },
-    { value: '~2 weeks', label: 'typical peer-review turnaround' },
-    { value: 'Unlimited', label: 'consultant access under retainer' },
+    {
+        value: 'Lower overhead',
+        label: 'specialized Medicare help without adding a full internal role',
+    },
+    {
+        value: 'Less risk',
+        label: 'coverage and documentation issues addressed before they grow',
+    },
+    {
+        value: 'More time',
+        label: 'clinical leaders spend fewer hours chasing changing rules',
+    },
+    {
+        value: 'Current guidance',
+        label: 'consultant access keeps staff aligned with Medicare standards',
+    },
 ];
 
 const FEATURES = [
     {
         icon: ShieldCheck,
-        title: 'Independent and unbiased',
-        body: 'Our reviewers have no stake in the outcome. You get a straight, professional opinion on whether care meets Medicare criteria — every time.',
+        title: 'Avoid building the expertise from scratch',
+        body: 'Hiring, training, and retaining someone who stays current on Medicare review standards is expensive. MRC gives you that depth on demand.',
     },
     {
         icon: BookOpen,
-        title: 'Education first',
-        body: "We don't just deliver findings — we teach your nursing staff the reasoning behind Medicare requirements, so every review makes your team stronger.",
+        title: 'Reduce preventable compliance exposure',
+        body: 'Weekly reviews and real-time guidance help your team catch coverage, notice, billing, and documentation issues before they become costly problems.',
     },
     {
         icon: Mountain,
-        title: 'Built for rural healthcare',
-        body: 'We know the realities of Critical Access Hospitals and rural facilities, where finding qualified, unbiased peer reviewers can be genuinely difficult.',
+        title: 'Protect high-value staff time',
+        body: 'Your nurses and leaders should not have to spend hours researching every Medicare question. We help them move faster with clearer answers.',
     },
     {
         icon: Clock,
-        title: 'Responsive by design',
-        body: 'A monthly retainer gives your staff unlimited access to our consultants. When a question comes up on the floor, the answer is a phone call away.',
+        title: 'Make hard decisions defensible',
+        body: 'Independent review, clean abstracts, and practical education give your facility a stronger record when coverage, payment, or appeal decisions are questioned.',
     },
 ];
 
@@ -104,12 +117,11 @@ function SectionHead({
 export default function Home() {
     return (
         <>
-            <Head>
-                <meta
-                    name="description"
-                    content="Medical Review Consultants partners with skilled nursing facilities, Critical Access Hospitals, and rural providers for Medicare utilization review, physician peer review, and RAC appeals."
-                />
-            </Head>
+            <Seo
+                title="Medicare Compliance Consulting for Skilled Nursing Facilities"
+                description="Medical Review Consultants helps SNFs, Critical Access Hospitals, and rural providers reduce Medicare compliance risk, protect reimbursement, and save staff time."
+                image="/images/working.png"
+            />
 
             {/* Hero */}
             <section className="hero-bg hero-floor relative flex min-h-[96svh] items-center overflow-hidden pt-[clamp(8rem,16vh,11rem)] pb-[clamp(3.5rem,8vh,6rem)] text-ice">
@@ -120,18 +132,19 @@ export default function Home() {
                             Medicare Review &amp; Compliance Consulting
                         </Eyebrow>
                         <h1 className="mb-[0.45em] text-[clamp(2.4rem,5.6vw,4rem)] font-bold text-white">
-                            Clarity and confidence in every{' '}
+                            Reduce Medicare compliance risk without building an{' '}
                             <em className="text-teal-bright not-italic">
-                                Medicare review
+                                in-house compliance bench
                             </em>
                             .
                         </h1>
                         <p className="max-w-[40rem] text-[clamp(1.05rem,1.8vw,1.25rem)] leading-[1.7] text-ice/80">
-                            Medical Review Consultants partners with skilled
-                            nursing facilities, Critical Access Hospitals, and
-                            rural providers to manage utilization review,
-                            physician peer review, and RAC appeals — so your
-                            team can stay focused on patient care.
+                            Medical Review Consultants gives skilled nursing
+                            facilities, Critical Access Hospitals, and rural
+                            providers current Medicare expertise on demand —
+                            helping protect reimbursement, prevent compliance
+                            surprises, and free your team to focus on patient
+                            care.
                         </p>
                         <div className="mt-9 flex flex-wrap gap-[0.9rem]">
                             <Link href="/services" className="btn btn-primary">
@@ -166,8 +179,8 @@ export default function Home() {
                 <div className="container-page">
                     <SectionHead
                         eyebrow="What We Do"
-                        title="Specialized support for the hardest parts of Medicare"
-                        lede="From weekly utilization review to high-stakes appeals, MRC gives your facility experienced, independent eyes on every decision."
+                        title="Specialized Medicare support that saves money before problems surface"
+                        lede="MRC helps facilities avoid the hidden cost of doing this work alone: staff research time, retraining, missed coverage signals, weak documentation, and avoidable appeal exposure."
                     />
                     <div className="grid gap-[1.4rem] sm:grid-cols-2 lg:grid-cols-4">
                         {SERVICES.map(({ icon: Icon, title, body, href }) => (
@@ -202,8 +215,8 @@ export default function Home() {
                     <SectionHead
                         dark
                         eyebrow="Why MRC"
-                        title="Why facilities choose Medical Review Consultants"
-                        lede="Medicare rules change constantly. Our job is to make sure your decisions stand on solid ground — and your staff understands why."
+                        title="The value is not just what we do. It is what your facility no longer has to carry alone."
+                        lede="Medicare rules change constantly. Our job is to absorb that complexity, support your staff in the moment, and help leadership avoid expensive surprises."
                     />
                     <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
                         {FEATURES.map(({ icon: Icon, title, body }) => (
@@ -245,26 +258,28 @@ export default function Home() {
                         <div className="reveal">
                             <Eyebrow>Rooted in Montana</Eyebrow>
                             <h2 className="text-[clamp(1.7rem,3.2vw,2.4rem)]">
-                                Big-sky perspective, ground-level expertise
+                                Built for lean healthcare teams with no room for
+                                Medicare missteps
                             </h2>
                             <p className="mt-3 text-[1.1rem] text-muted">
                                 Based in Bozeman, Montana, MRC understands the
                                 pressures rural and community providers face —
                                 lean teams, heavy regulation, and no room for
-                                costly Medicare missteps.
+                                costly Medicare missteps or another internal
+                                training burden.
                             </p>
                             <ul className="mt-6 grid list-none gap-[0.7rem] p-0">
                                 <CheckItem>
-                                    Certified Medicare specialists working
-                                    directly with your leadership
+                                    Medicare specialists working directly with
+                                    leadership and floor staff
                                 </CheckItem>
                                 <CheckItem>
-                                    Reviewing physicians in General Practice and
-                                    Internal Medicine
+                                    Independent physician review without the
+                                    search and scheduling burden
                                 </CheckItem>
                                 <CheckItem>
-                                    A working style that's efficient, pleasant,
-                                    and genuinely supportive
+                                    Ongoing education that keeps your team
+                                    aligned as standards change
                                 </CheckItem>
                             </ul>
                         </div>
@@ -276,8 +291,8 @@ export default function Home() {
             <section className="bg-paper py-[clamp(4rem,9vw,6.5rem)]">
                 <div className="container-page">
                     <CtaBand
-                        title="Let's talk about your facility's needs."
-                        text="Whether it's weekly utilization review or a RAC appeal that landed on your desk this morning, we're ready to help."
+                        title="Want to compare MRC with doing this in-house?"
+                        text="We'll help you think through the cost of staff time, training, compliance exposure, and appeal risk so you can choose the right level of support."
                     >
                         <Link href="/contact" className="btn btn-primary">
                             Contact Us

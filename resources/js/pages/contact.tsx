@@ -1,8 +1,8 @@
-import { Head } from '@inertiajs/react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { SubHero } from '@/components/sections';
+import Seo, { breadcrumbSchema } from '@/components/seo';
 import { CONTACT } from '@/lib/site';
 
 const fieldClass =
@@ -34,22 +34,28 @@ export default function Contact() {
 
     return (
         <>
-            <Head title="Contact">
-                <meta
-                    name="description"
-                    content="Reach Medical Review Consultants in Bozeman, Montana — by phone, email, or the contact form. Primary contact: Chelsea Embry, RN, BSN."
-                />
-            </Head>
+            <Seo
+                title="Contact Medicare Review Consultants in Bozeman, Montana"
+                description="Contact MRC for Medicare utilization review, compliance consulting, physician peer review, RAC appeals, and staff education for rural healthcare facilities."
+                path="/contact"
+                image="/images/montana.png"
+                jsonLd={breadcrumbSchema([
+                    { name: 'Home', path: '/' },
+                    { name: 'Contact', path: '/contact' },
+                ])}
+            />
 
             <SubHero
                 eyebrow="Contact"
                 title={
                     <>
-                        Let's{' '}
-                        <em className="text-teal-bright not-italic">talk</em>
+                        Find the Medicare burden your facility can{' '}
+                        <em className="text-teal-bright not-italic">
+                            stop carrying
+                        </em>
                     </>
                 }
-                lede="Questions about utilization review, a chart that needs an independent opinion, or a RAC letter you'd rather not face alone — we'd be glad to hear from you."
+                lede="Tell us where your staff is spending time now — utilization review, compliance questions, peer review, RAC appeals, or keeping up with changing standards — and we'll help identify the support that creates the most value."
             />
 
             <section className="bg-paper py-[clamp(4rem,9vw,6.5rem)]">
@@ -60,8 +66,9 @@ export default function Contact() {
                             Reach us directly
                         </h2>
                         <p className="mt-2 text-[0.98rem] text-ice/75">
-                            We're a small team, which means you talk to the
-                            people who do the work.
+                            We're a small team, which means you can talk through
+                            the operational cost, compliance exposure, and staff
+                            time involved with the people who do the work.
                         </p>
                         <ul className="mt-7 grid list-none gap-[1.15rem] p-0">
                             <li className="flex items-start gap-[0.9rem]">
@@ -142,7 +149,9 @@ export default function Contact() {
                         <h2 className="text-[1.55rem]">Send us a message</h2>
                         <p className="mt-2 mb-6 text-[0.98rem] text-muted">
                             Tell us a little about your facility and what you
-                            need — we'll get back to you promptly.
+                            are trying to reduce — staff time, appeal risk,
+                            compliance uncertainty, or the burden of keeping up
+                            with Medicare standards.
                         </p>
                         <form
                             onSubmit={handleSubmit}
