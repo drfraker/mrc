@@ -43,7 +43,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
         <>
             <a
                 href="#main"
-                className="absolute top-0 left-[-9999px] z-200 rounded-br-xl bg-teal px-5 py-3 font-semibold text-navy-950 focus:left-0"
+                className="absolute top-0 left-[-9999px] z-200 rounded-br-xl bg-brand px-5 py-3 font-semibold text-white focus:left-0"
             >
                 Skip to content
             </a>

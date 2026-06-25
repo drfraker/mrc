@@ -1,29 +1,23 @@
 import { Link, usePage } from '@inertiajs/react';
-import {
-    LayoutDashboard,
-    LogIn,
-    Menu,
-    Phone,
-    ShieldCheck,
-    X,
-} from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { CONTACT, NAV_ITEMS } from '@/lib/site';
+import { ArrowRight, Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import MrcMark from '@/components/mrc-mark';
+import { NAV_ITEMS } from '@/lib/site';
+
+/* Primary nav links (Contact is rendered as the CTA, not a plain link). */
+const NAV = NAV_ITEMS.filter((item) => item.href !== '/contact');
 
 function Brand() {
     return (
-        <Link
-            href="/"
-            className="group inline-flex items-center gap-3 text-ice no-underline"
-        >
-            <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-teal to-teal-deep shadow-[0_4px_14px_rgba(46,200,181,0.35)]">
-                <ShieldCheck className="size-6 text-navy-950" strokeWidth={2} />
+        <Link href="/" className="flex items-center gap-[13px] no-underline">
+            <span className="flex size-[42px] items-center justify-center rounded-[11px] bg-brand">
+                <MrcMark className="size-[23px] text-azure" />
             </span>
-            <span className="font-display leading-tight">
-                <span className="block text-[1.08rem] font-bold tracking-tight">
+            <span className="leading-[1.05]">
+                <span className="block font-sans text-[1rem] font-extrabold tracking-[-0.02em] text-graphite">
                     Medical Review Consultants
                 </span>
-                <span className="block font-sans text-[0.67rem] font-medium tracking-[0.22em] text-ice/60 uppercase">
+                <span className="mt-[2px] block font-sans text-[0.6875rem] font-semibold tracking-[0.13em] text-pewter-soft uppercase">
                     Medicare Review &amp; Compliance
                 </span>
             </span>
@@ -32,93 +26,52 @@ function Brand() {
 }
 
 export default function SiteHeader() {
-    const { url, props } = usePage();
-    const [scrolled, setScrolled] = useState(false);
+    const { url } = usePage();
     const [open, setOpen] = useState(false);
-    const auth = props.auth as { user?: unknown } | undefined;
-    const currentTeam = props.currentTeam as
-        | { slug?: string }
-        | null
-        | undefined;
-    const consultantHref =
-        auth?.user && currentTeam?.slug
-            ? `/${currentTeam.slug}/dashboard`
-            : '/login';
-
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 24);
-        onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
 
     const isActive = (href: string) =>
         href === '/' ? url === '/' : url.startsWith(href);
 
     return (
-        <header
-            className={`fixed inset-x-0 top-0 z-100 border-b transition-colors duration-300 ${
-                scrolled
-                    ? 'border-ice/15 bg-navy-900/90 backdrop-blur-md'
-                    : 'border-transparent'
-            }`}
-        >
-            <div className="container-page flex items-center justify-between gap-6 py-[0.9rem]">
+        <header className="sticky top-0 z-50 border-b border-brand/8 bg-white/85 backdrop-blur-xl">
+            <div className="container-page flex h-[74px] items-center justify-between gap-6">
                 <Brand />
 
                 <nav
                     className="hidden items-center gap-1 lg:flex"
                     aria-label="Main navigation"
                 >
-                    {NAV_ITEMS.map((item) => (
+                    {NAV.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
                             aria-current={
                                 isActive(item.href) ? 'page' : undefined
                             }
-                            className={`rounded-full px-[0.85rem] py-2 text-[0.95rem] font-medium no-underline transition-colors ${
+                            className={`rounded-full px-[14px] py-[9px] text-[0.875rem] no-underline transition-colors ${
                                 isActive(item.href)
-                                    ? 'bg-teal/12 text-teal-bright'
-                                    : 'text-ice/85 hover:bg-ice/10 hover:text-white'
+                                    ? 'font-semibold text-brand'
+                                    : 'font-medium text-pewter hover:bg-brand/5 hover:text-brand'
                             }`}
                         >
                             {item.label}
                         </Link>
                     ))}
-                </nav>
-
-                <div className="hidden items-center gap-2 lg:flex">
                     <Link
-                        href={consultantHref}
-                        className="inline-flex items-center gap-2 rounded-full border border-ice/25 px-4 py-2 text-[0.92rem] font-semibold text-ice no-underline transition-colors hover:border-teal-bright hover:text-teal-bright"
+                        href="/contact"
+                        className="ml-2 inline-flex items-center gap-2 rounded-full bg-brand px-[18px] py-[10px] text-[0.875rem] font-semibold text-white no-underline shadow-[0_10px_22px_rgba(0,59,92,0.18)] transition-transform hover:-translate-y-px"
                     >
-                        {auth?.user ? (
-                            <LayoutDashboard
-                                className="size-[1.05em]"
-                                strokeWidth={2}
-                            />
-                        ) : (
-                            <LogIn className="size-[1.05em]" strokeWidth={2} />
-                        )}
-                        {auth?.user ? 'Dashboard' : 'Consultant Login'}
+                        Speak with a consultant
+                        <ArrowRight className="size-[14px]" strokeWidth={2.2} />
                     </Link>
-                    <a
-                        href={CONTACT.phonePrimaryHref}
-                        className="btn btn-primary whitespace-nowrap"
-                    >
-                        <Phone className="size-[1.05em]" strokeWidth={2} />
-                        {CONTACT.phonePrimary}
-                    </a>
-                </div>
+                </nav>
 
                 <button
                     type="button"
                     onClick={() => setOpen((v) => !v)}
                     aria-expanded={open}
                     aria-label="Toggle navigation"
-                    className="inline-flex rounded-xl border-[1.5px] border-ice/40 p-2 text-ice lg:hidden"
+                    className="inline-flex rounded-xl border-[1.5px] border-brand/15 p-2 text-brand lg:hidden"
                 >
                     {open ? (
                         <X className="size-6" />
@@ -131,7 +84,7 @@ export default function SiteHeader() {
             {open && (
                 <div className="container-page lg:hidden">
                     <nav
-                        className="mb-3 flex flex-col gap-1 rounded-card border border-ice/15 bg-navy-900 p-3 shadow-lift"
+                        className="mb-3 flex flex-col gap-1 rounded-card border border-brand/10 bg-white p-3 shadow-[0_18px_44px_rgba(25,28,29,0.12)]"
                         aria-label="Mobile navigation"
                     >
                         {NAV_ITEMS.map((item) => (
@@ -142,41 +95,26 @@ export default function SiteHeader() {
                                 aria-current={
                                     isActive(item.href) ? 'page' : undefined
                                 }
-                                className={`rounded-xl px-4 py-3 text-[0.95rem] font-medium no-underline ${
+                                className={`rounded-xl px-4 py-3 text-[0.95rem] no-underline ${
                                     isActive(item.href)
-                                        ? 'bg-teal/12 text-teal-bright'
-                                        : 'text-ice/85 hover:bg-ice/10'
+                                        ? 'bg-brand/8 font-semibold text-brand'
+                                        : 'font-medium text-pewter hover:bg-brand/5'
                                 }`}
                             >
                                 {item.label}
                             </Link>
                         ))}
                         <Link
-                            href={consultantHref}
-                            className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-ice/20 px-4 py-3 text-[0.95rem] font-semibold text-ice no-underline"
+                            href="/contact"
                             onClick={() => setOpen(false)}
+                            className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-[0.95rem] font-semibold text-white no-underline"
                         >
-                            {auth?.user ? (
-                                <LayoutDashboard
-                                    className="size-[1.05em]"
-                                    strokeWidth={2}
-                                />
-                            ) : (
-                                <LogIn
-                                    className="size-[1.05em]"
-                                    strokeWidth={2}
-                                />
-                            )}
-                            {auth?.user ? 'Dashboard' : 'Consultant Login'}
+                            Speak with a consultant
+                            <ArrowRight
+                                className="size-[1.05em]"
+                                strokeWidth={2.2}
+                            />
                         </Link>
-                        <a
-                            href={CONTACT.phonePrimaryHref}
-                            className="btn btn-primary mt-2 justify-center"
-                            onClick={() => setOpen(false)}
-                        >
-                            <Phone className="size-[1.05em]" strokeWidth={2} />
-                            {CONTACT.phonePrimary}
-                        </a>
                     </nav>
                 </div>
             )}

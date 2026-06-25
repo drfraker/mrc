@@ -180,6 +180,17 @@
     --color-muted: #51637f;
     --color-line: #dce5ef;
 
+    /* Light "Assurance" redesign palette (home page + future light pages).
+       Additive only — does not change the existing dark marketing theme. */
+    --color-brand: #003b5c; /* deep ocean — primary on light surfaces */
+    --color-brand-ink: #00263c; /* darkest band */
+    --color-azure: #62b5e5; /* sky-blue accent */
+    --color-azure-soft: #9ec9e6; /* azure for dark backgrounds */
+    --color-graphite: #191c1d; /* headings on light */
+    --color-pewter: #434654; /* body text on light */
+    --color-pewter-soft: #585f6c; /* secondary text on light */
+    --color-pewter-faint: #8a909c; /* captions / fine print */
+
     --radius-card: 16px;
 
     --shadow-soft:
@@ -387,6 +398,77 @@
     .contact-card-bg {
         background: linear-gradient(165deg, #0f2547, #06101f);
         box-shadow: var(--shadow-lift);
+    }
+
+    /* ---------- Light "Assurance" redesign ---------- */
+
+    /* Headings on light marketing surfaces use Inter, not the serif display. */
+    .surface-light :is(h1, h2, h3, h4) {
+        font-family: var(--font-sans);
+    }
+
+    /* Page CTAs (rounded rect buttons). Pair .cta with a variant. */
+    .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 14px 24px;
+        border-radius: 11px;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition:
+            transform 0.18s ease,
+            box-shadow 0.18s ease,
+            background-color 0.18s ease,
+            border-color 0.18s ease,
+            color 0.18s ease;
+    }
+    .cta:hover {
+        transform: translateY(-1px);
+        text-decoration: none;
+    }
+    .cta:active {
+        transform: translateY(0);
+    }
+    .cta-brand {
+        background: var(--color-brand);
+        color: #fff;
+        box-shadow: 0 16px 32px rgba(0, 59, 92, 0.22);
+    }
+    .cta-brand:hover {
+        background: #00496f;
+    }
+    .cta-azure {
+        padding: 15px 28px;
+        background: var(--color-azure);
+        color: var(--color-brand-ink);
+        font-weight: 700;
+        box-shadow: 0 16px 34px rgba(98, 181, 229, 0.3);
+    }
+    .cta-azure:hover {
+        background: #7cc2ea;
+    }
+    .cta-outline {
+        background: #fff;
+        color: var(--color-brand);
+        border-color: rgba(0, 59, 92, 0.14);
+        box-shadow: 0 1px 3px rgba(25, 28, 29, 0.05);
+    }
+    .cta-outline:hover {
+        border-color: rgba(0, 59, 92, 0.3);
+    }
+    .cta-dark-ghost {
+        padding: 15px 26px;
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    .cta-dark-ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
     }
 }
 

@@ -2,6 +2,7 @@ import { Head, router, usePage } from '@inertiajs/react';
 import { AlertTriangle, Calculator, ShieldCheck } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
+import { PageHero } from '@/components/sections';
 import Seo from '@/components/seo';
 
 type Boolish = 'unknown' | 'yes' | 'no';
@@ -172,33 +173,20 @@ export default function ProviderIntake({
     }
 
     return (
-        <>
+        <div className="surface-light bg-[radial-gradient(120%_70%_at_88%_-6%,rgba(98,181,229,0.16),transparent_46%),linear-gradient(180deg,#f8f9fa_0%,#ffffff_42%,#f8f9fa_100%)] text-graphite">
             <Head title="Provider Intake" />
             <Seo
                 title="Provider SNF Medicare Review Intake"
                 description="Submit de-identified SNF Medicare review facts to Medical Review Consultants."
             />
 
-            <section className="hero-bg relative overflow-hidden pt-[clamp(8rem,14vh,10rem)] pb-12 text-ice">
-                <div className="container-page">
-                    <div className="max-w-3xl">
-                        <p className="eyebrow eyebrow-bright">
-                            Provider intake
-                        </p>
-                        <h1 className="mt-4 text-[clamp(2rem,5vw,3.4rem)] text-white">
-                            De-identified SNF Medicare review submission
-                        </h1>
-                        <p className="mt-4 max-w-2xl text-ice/80">
-                            Use this form for Medicare Part A skilled nursing
-                            facility coverage review. Dates entered here are
-                            used only in your browser to calculate relative
-                            timing values before submit.
-                        </p>
-                    </div>
-                </div>
-            </section>
+            <PageHero
+                eyebrow="Provider intake"
+                title="De-identified SNF Medicare review submission"
+                lede="Use this form for Medicare Part A skilled nursing facility coverage review. Dates entered here are used only in your browser to calculate relative timing values before submit."
+            />
 
-            <section className="bg-paper py-10">
+            <section className="py-10">
                 <div className="container-page">
                     <div className="mb-6 rounded-card border border-amber-300 bg-amber-50 p-5 text-amber-950">
                         <div className="flex items-start gap-3">
@@ -518,7 +506,7 @@ export default function ProviderIntake({
                                         update('narrative', event.target.value)
                                     }
                                     rows={7}
-                                    className="w-full rounded-lg border border-line bg-white p-3 text-sm outline-none focus:border-teal"
+                                    className="w-full rounded-lg border border-line bg-white p-3 text-sm outline-none focus:border-brand"
                                     placeholder="Summarize skilled need, service complexity, and evidence gaps. Do not enter patient identifiers or exact dates."
                                 />
                                 <div className="mt-4 rounded-lg border border-line bg-white p-4">
@@ -535,7 +523,7 @@ export default function ProviderIntake({
 
                         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
                             <div className="rounded-card border border-line bg-white p-5 shadow-soft">
-                                <ShieldCheck className="size-7 text-teal-deep" />
+                                <ShieldCheck className="size-7 text-brand" />
                                 <h2 className="mt-3 font-sans text-lg font-semibold">
                                     Submission guardrails
                                 </h2>
@@ -578,7 +566,7 @@ export default function ProviderIntake({
                                 )}
                                 <button
                                     disabled={processing}
-                                    className="btn btn-primary mt-5 w-full justify-center disabled:cursor-not-allowed disabled:opacity-60"
+                                    className="cta cta-brand mt-5 w-full justify-center disabled:cursor-not-allowed disabled:opacity-60"
                                 >
                                     {processing
                                         ? 'Submitting...'
@@ -589,7 +577,7 @@ export default function ProviderIntake({
                     </form>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
 
@@ -635,7 +623,7 @@ function TextField({
                 type={type}
                 value={value}
                 onChange={(event) => onChange(event.target.value)}
-                className="mt-1 w-full rounded-lg border border-line bg-white px-3 py-2 outline-none focus:border-teal"
+                className="mt-1 w-full rounded-lg border border-line bg-white px-3 py-2 outline-none focus:border-brand"
             />
             {help && (
                 <span className="mt-1 block text-xs font-normal text-muted">
@@ -701,7 +689,7 @@ function NumberField({
                 max={max}
                 value={value}
                 onChange={(event) => onChange(Number(event.target.value))}
-                className="mt-1 w-full rounded-lg border border-line bg-white px-3 py-2 outline-none focus:border-teal"
+                className="mt-1 w-full rounded-lg border border-line bg-white px-3 py-2 outline-none focus:border-brand"
             />
         </label>
     );
@@ -724,7 +712,7 @@ function SelectField({
             <select
                 value={value}
                 onChange={(event) => onChange(event.target.value)}
-                className="mt-1 w-full rounded-lg border border-line bg-white px-3 py-2 outline-none focus:border-teal"
+                className="mt-1 w-full rounded-lg border border-line bg-white px-3 py-2 outline-none focus:border-brand"
             >
                 {options.map(([optionValue, label]) => (
                     <option key={optionValue} value={optionValue}>
@@ -747,7 +735,7 @@ function DerivedValue({
 }) {
     return (
         <div className="flex items-center gap-3 rounded-lg border border-line bg-white p-3">
-            <Icon className="size-5 text-teal-deep" />
+            <Icon className="size-5 text-brand" />
             <div>
                 <p className="text-xs text-muted">{label}</p>
                 <p className="font-semibold text-ink">
