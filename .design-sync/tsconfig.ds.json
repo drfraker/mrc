@@ -1,0 +1,10 @@
+{
+    "// note": "design-sync only. esbuild (lib/bundle.mjs tsconfigPathsPlugin) reads compilerOptions.paths from here to resolve @/ aliases AND to redirect @inertiajs/react to the static shim. baseUrl '../' = repo root.",
+    "compilerOptions": {
+        "baseUrl": "../",
+        "paths": {
+            "@/*": ["resources/js/*"],
+            "@inertiajs/react": [".design-sync/shims/inertia-react.tsx"]
+        }
+    }
+}

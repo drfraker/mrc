@@ -1,0 +1,48 @@
+{
+    "pkg": "mrc",
+    "globalName": "MRC",
+    "projectId": "74b1f53d-02f2-437f-88d9-1603a3b6db6c",
+    "shape": "package",
+    "buildCmd": "npm run build && cp \"public/build/$(node -pe 'require(\"./public/build/manifest.json\")[\"resources/css/app.css\"].file')\" .design-sync/styles.compiled.css",
+    "srcDir": "resources/js",
+    "tsconfig": ".design-sync/tsconfig.ds.json",
+    "cssEntry": ".design-sync/styles.compiled.css",
+    "extraFonts": [
+        "public/fonts/inter-latin.woff2",
+        "public/fonts/source-serif-4-latin.woff2"
+    ],
+    "readmeHeader": ".design-sync/conventions.md",
+    "componentSrcMap": {
+        "Kicker": "resources/js/components/sections.tsx",
+        "ContourLines": "resources/js/components/sections.tsx",
+        "PageHero": "resources/js/components/sections.tsx",
+        "CtaBand": "resources/js/components/sections.tsx",
+        "CheckRow": "resources/js/components/sections.tsx",
+        "MrcMark": "resources/js/components/mrc-mark.tsx",
+        "SiteHeader": "resources/js/components/site-header.tsx",
+        "SiteFooter": "resources/js/components/site-footer.tsx",
+        "SiteLayout": "resources/js/components/site-layout.tsx"
+    },
+    "dtsPropsFor": {
+        "Kicker": "  /** Small uppercase section label. Default brand tone is for light surfaces; tone=\"azure\" is the lighter accent for dark backgrounds. */\n  children: React.ReactNode;\n  /** Color treatment. 'brand' (deep ocean, on light) or 'azure' (sky blue, on dark). */\n  tone?: 'brand' | 'azure';",
+        "ContourLines": "  /** Decorative topographic contour lines (aria-hidden). Sized/positioned entirely by the className you pass. */\n  className?: string;\n  /** 'hero' = larger 5-line motif behind page heroes; 'band' = flatter 3-line motif for dark CTA bands. */\n  variant?: 'hero' | 'band';",
+        "PageHero": "  /** Small uppercase label above the title. */\n  eyebrow: string;\n  /** Page title. May include a <span className=\"text-brand\"> for the emphasized phrase. */\n  title: React.ReactNode;\n  /** Supporting lede paragraph. */\n  lede: React.ReactNode;\n  /** Optional content below the lede (e.g. anchor chips). */\n  children?: React.ReactNode;",
+        "CtaBand": "  /** Heading of the call-to-action band. */\n  title: string;\n  /** Supporting text under the heading. */\n  text: React.ReactNode;\n  /** Action buttons/links (use .cta .cta-azure / .cta-dark-ghost). */\n  children: React.ReactNode;\n  /** 'split' = heading left, actions right; 'center' = stacked and centered. */\n  align?: 'split' | 'center';",
+        "CheckRow": "  /** Row content, rendered next to a green check icon. Used in service feature lists. */\n  children: React.ReactNode;",
+        "MrcMark": "  /** The two-stroke \"review wave\" brand mark (24x24 viewBox). Strokes inherit currentColor — set color with a text-* class. Accepts all standard SVG props. */\n  className?: string;",
+        "SiteHeader": "  /** Sticky top navigation bar (brand lockup, nav links, \"Speak with a consultant\" CTA, mobile menu). No props. */",
+        "SiteFooter": "  /** Site footer (brand lockup, nav, contact details, fine print, admin link). No props. */",
+        "SiteLayout": "  /** Page content rendered between the sticky SiteHeader and SiteFooter. Also runs the scroll-reveal observer for .reveal elements. */\n  children: React.ReactNode;"
+    },
+    "overrides": {
+        "Kicker": { "cardMode": "single", "viewport": "640x220" },
+        "ContourLines": { "cardMode": "single", "viewport": "760x360" },
+        "PageHero": { "cardMode": "single", "viewport": "1120x520" },
+        "CtaBand": { "cardMode": "single", "viewport": "1040x440" },
+        "CheckRow": { "cardMode": "single", "viewport": "640x220" },
+        "MrcMark": { "cardMode": "single", "viewport": "440x200" },
+        "SiteHeader": { "cardMode": "single", "viewport": "1180x180" },
+        "SiteFooter": { "cardMode": "single", "viewport": "1180x540" },
+        "SiteLayout": { "cardMode": "single", "viewport": "1200x1700" }
+    }
+}
